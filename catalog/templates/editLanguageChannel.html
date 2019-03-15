@@ -1,0 +1,36 @@
+{% include 'nav.html' %}
+<div class="main">
+{% block content %}
+
+<div class="">
+		<div class="mr-sm-2 mb-2 col-sm-8" style="margin: 10px;">
+			<form action="{{ url_for('editLanguageChannel',ghid=ghid,ghename=channeldetails.name)}}" method="POST">
+				<div class="panel panel-info">
+				  <div class="panel-heading">Edit Channel Details</div>
+				  <div class="panel-body">
+				  	
+					  <div class="form-group">
+					  	<label class="text-primary" for="name">Enter Channel Name:</label>
+					    <input type="name" class="form-control" name="name" value="{{channeldetails.name}}">
+					  </div>
+					  <div class="form-group">
+					  	<label class="text-primary" for="owner">Enter Owner:</label>
+					    <input type="text" class="form-control" name="owner" value="{{channeldetails.owner}}">
+					  </div>
+					   <div class="form-group">
+					  	<label class="text-primary" for="price">Enter Price:</label>
+					    <input type="text" class="form-control" name="price" value="{{channeldetails.price}}">
+					  </div>
+					  <div class="form-group">
+					  	<label class="text-primary" for="rating">Enter Rating:</label>
+					    <input type="text" class="form-control" name="rating" value="{{channeldetails.rating}}">
+					  </div>
+					 
+					  					  
+				  </div> 
+				  <div class="panel-footer text-center"><input type="submit" class="btn btn-primary" value="Edit"></div>
+				</div>
+				</form>
+			</div>
+</div>
+{% endblock content %}

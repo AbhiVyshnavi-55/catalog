@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>CHANNELS STORE</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="//apis.google.com/js/platform.js?onload=start"> </script>
+  <!-- END PRE-REQUISITES FOR GOOGLE SIGN IN -->
+  <style>
+    body {
+      font-family: "Verdana", sans-serif;
+    }
+
+    .sidenav {
+      height: 100%;
+      width: 270px;
+      position: fixed;
+      z-index: 1;
+      top: 50px;
+      left: 0;
+      background-image: url("https://previews.123rf.com/images/keee/keee1602/keee160200003/51691024-abstract-white-polygon-background.jpg");
+	  background-repeat: no-repeat;
+      background-size: 100% 100%;
+      overflow-x: hidden;
+      padding-top: 20px;
+    }
+
+    .sidenav a {
+      padding: 6px 1px 26px 32px;
+      text-decoration: underline;
+      font-size: 18px;
+      color: rgb(60, 179, 113);
+      display: block;
+    }
+
+    .sidenav a:hover {
+      color: rgb(212, 49, 169);
+	  font-size:23px;
+    }
+
+    .main {
+      margin-left: 300px; /* Same as the width of the sidenav */
+
+    }
+
+    @media screen and (max-height: 450px) {
+      .sidenav {padding-top: 15px;}
+      .sidenav a {font-size: 18px;}
+    }
+  </style>
+  {% block head %}{% endblock head %}
+</head>
+<body style="background-color:HoneyDew">
+{% with messages = get_flashed_messages() %}
+        {% if messages %}
+          <script>
+            var messages = {{ messages | safe }};
+            for (var i=0; i<messages.length; i++) {
+              alert(messages[i]);
+            }
+          </script>
+        {% endif %}
+{% endwith %}
+<nav class="navbar navbar-inverse  navbar-fixed-top">
+  <div class="container-fluid" style="background-color:hotpink">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="{{ url_for('home') }}" style="color:indigo;font-size:32px;background-color:linen" >TELLY CHANNELS</a>
+    </div>
+    <ul class="nav navbar-nav navbar-right">
+      {% if 'username' in session %}
+            <li><button class="btn btn-warning mr-sm-2" style="margin-top: 5px;background-color:DimGray"><a href="{{ url_for('addLanguageName')}}" style="color:White">ADD CATEGORY</a></button></li>
+            <li style="margin: 10px;"><p class="text-primary mr-sm-2">{{ session.username }}</p></li>
+			
+            <li><a href="{{ url_for('logout')}}" style="color:Navy;font-weight: bold"><span class="glyphicon glyphicon-log-in"></span> LOGOUT</a></li>
+      {% else %}
+            <li><a href="{{ url_for('showLogin')}}" style="color:Navy;font-weight: 900"><span class="glyphicon glyphicon-log-in" style="color:Black"></span> LOGIN</a></li>
+      {% endif %}
+      
+    </ul>
+  </div>
+</nav>
+  
+<div class="sidenav">
+  <table>
+      {% for gh in abc_first %}
+      <tr>
+          <td><a href="{{ url_for('showLanguages',ghid=gh.id)}}">{{gh.name}}</a></td>
+          {% if 'username' in session %}
+            <td><a href = "{{ url_for('editLanguageName',ghid=gh.id)}}">
+            <span class="glyphicon glyphicon-pencil pull-right " data-toggle="tooltip" title="Edit Category" data-placement="bottom"> </span> </a></td>
+            <td><a href = "{{ url_for('deleteLanguageName',ghid=gh.id)}}">
+            <span class="glyphicon glyphicon-trash pull-right" data-toggle="tooltip" title="Delete Category" data-placement="top"> </span> </a></td>  
+          {% endif %}   
+        </tr>              
+      {% endfor %}
+  </table>
+</div>
+<div class="container">
+
+      <div class="main" style="margin-top: 100px;">
+        
+            {% block content %}
+              
+            {% endblock content %}
+          
+        </div>
+  </div>
+  
+</body>
+</html>

@@ -1,0 +1,45 @@
+{% include 'nav.html' %}
+<div class="main">
+{% block content %}
+{% with messages = get_flashed_messages() %}
+	{% if messages %}
+	        <div class="alert alert-success alert-dismissable animated fadeIn">
+	            {% for message in messages %}
+	            <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+	            <p class="h4"><strong>{{ message }}</strong></p>
+	            {% endfor %}
+	        </div>
+	{% endif %}	    
+{% endwith %}
+{% if 'username' in session %}
+<button type="button" class="btn btn-warning" style="margin: 5px 0px 5px 25px;background-color:MediumVioletRed"><a href="{{url_for('addLanguageDetails',ghname=abc.name)}}" style="text-decoration: none; color: White"><strong>Add New CHANNEL</strong></a></button>
+
+{% endif %}
+<div class="row" style="margin: 10px;">
+{% for ghe in lmn %}
+
+	<div class="col-sm-4 text-center">
+		<div class="panel panel-primary" style="background-color:#DCDCDC;color:Navy">
+			<div class="panel-heading" style="background-color:Gold;color:Indigo" >
+				<h4 style="font-weight: bold">{{ ghe.name }}</h4>
+			</div>
+			<div class="panel-body text-center">
+				<table>
+					<tr><th>CHANNEL NAME</th><td>:</td><td><h5>{{ ghe.name }}</h5></td></tr>
+					<tr><th>FOUNDER</th><td>:</td><td><h5>{{ ghe.owner }}</h5></td></tr>
+					<tr><th>PRICE</th><td>:</td><td><h5>{{ ghe.price }}</h5></td></tr>
+					<tr><th>RATING</th><td>:</td><td><h5>{{ ghe.rating }}</h5></td></tr>
+				</table>
+			</div>
+			{% if 'username' in session %}
+			<div class="panel-footer" style="background-color:#006090">
+					<button type="button" class="btn btn-info" style="background-color:PaleGreen"><a href="{{ url_for('editLanguageChannel',ghid=abc.id,ghename=ghe.name) }}"style="text-decoration: none;color:black">EDIT</a></button>
+					<button type="button" class="btn btn-danger" style="background-color:PaleVioletRed"><a href="{{ url_for('deleteLanguageChannel',ghid=abc.id,ghename=ghe.name)}}"style="text-decoration: none;color:White">DELETE</a></button>
+			</div>
+			{% endif %}	
+		</div>
+	</div>
+{% endfor %}
+</div>
+{% endblock content %}
+</div>
